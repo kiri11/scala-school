@@ -42,7 +42,7 @@ object Computation extends App with Data {
 object CurriedComputation extends App with Data {
 
   def curriedComputation(filterData: String)(dataProducer: Array[String]): Array[String] =
-    dataProducer.filter(dataItem => filterData.split(" ").contains(dataItem))
+    Computation.computation(filterData, dataProducer)
 
   val partiallyAppliedCurriedFunction = curriedComputation(filterData)_  // type: <function1>
 
@@ -59,8 +59,7 @@ object FunctionalComputation extends App with Data {
 
   def functionalComputation(filterData: String): (Array[String]) => Array[String] =
     (dataProducer) => {
-      var splitData = filterData.split(" ")
-      dataProducer.filter(dataItem => splitData.contains(dataItem))
+      Computation.computation(filterData, dataProducer)
     }
 
   val filterApplied = functionalComputation(filterData)
