@@ -57,10 +57,17 @@ object CurriedComputation extends App with Data {
   */
 object FunctionalComputation extends App with Data {
 
-  def functionalComputation(filterData: String): (Array[String]) => Array[String] =
+  def functionalComputation(filterData: String): (Array[String]) => Array[String] = {
+    //EMULATE HEAVY LOAD
+    Thread.sleep(10)
+    var splitData = filterData.split(" ")
+
     (dataProducer) => {
-      Computation.computation(filterData, dataProducer)
+      //EMULATE HEAVY LOAD
+      Thread.sleep(100)
+      dataProducer.filter(dataItem => splitData.contains(dataItem))
     }
+  }
 
   val filterApplied = functionalComputation(filterData)
 
